@@ -8,38 +8,31 @@ class CourseHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Row(
+    return  Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Row(
+        const Row(
           children: [
             Text(
               "Courses ",
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
-            Text(
-              "View All",
-              style: TextStyle(color: kDarkBlue, height: 2),
-            )
           ],
         ),
         Row(
           children: [
-            Icon(
-              Icons.calendar_month_outlined,
-              color: Colors.grey,
-            ),
-            SizedBox(
+            const SizedBox(
               width: 5,
             ),
-            Text(
-              "18 July 2022",
-              style: TextStyle(
-                  fontSize: 16,
-                  color: kDarkBlue,
-                  height: 2,
-                  fontWeight: FontWeight.bold),
-            )
+            TextButton(
+              onPressed: () {
+                Navigator.pushNamed(context, 'view_courses');
+              },
+              child: const Text(
+                "View All",
+                style: TextStyle(color: kDarkBlue),
+              ),
+            ),
           ],
         ),
       ],

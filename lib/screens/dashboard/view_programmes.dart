@@ -1,43 +1,18 @@
 import 'package:alumni_tracker/config/config.dart';
 import 'package:flutter/material.dart';
 
+import '../../data/data.dart';
 import '../../model/student_alumni.dart';
 import 'components/side_menu.dart';
 
-class AlumniStudent extends StatefulWidget {
-  const AlumniStudent({Key? key}) : super(key: key);
+class ViewProgrammes extends StatefulWidget {
+  const ViewProgrammes({Key? key}) : super(key: key);
 
   @override
-  _AlumniStudentState createState() => _AlumniStudentState();
+  _ViewProgrammesState createState() => _ViewProgrammesState();
 }
 
-class _AlumniStudentState extends State<AlumniStudent> {
-  // Dummy student data
-  final List<Student> students = [
-    Student(name: 'John Doe', program: 'Computer Science', admissionYear: '2020'),
-    Student(name: 'Alice Smith', program: 'Engineering', admissionYear: '2019'),
-    Student(name: 'John Doe', program: 'Computer Science', admissionYear: '2020'),
-    Student(name: 'Alice Smith', program: 'Engineering', admissionYear: '2019'),
-    Student(name: 'John Doe', program: 'Computer Science', admissionYear: '2020'),
-    Student(name: 'Alice Smith', program: 'Engineering', admissionYear: '2019'),
-    Student(name: 'John Doe', program: 'Computer Science', admissionYear: '2020'),
-    Student(name: 'Alice Smith', program: 'Engineering', admissionYear: '2019'),
-    Student(name: 'John Doe', program: 'Computer Science', admissionYear: '2020'),
-    Student(name: 'Alice Smith', program: 'Engineering', admissionYear: '2019'),
-    Student(name: 'John Doe', program: 'Computer Science', admissionYear: '2020'),
-    Student(name: 'Alice Smith', program: 'Engineering', admissionYear: '2019'),
-    Student(name: 'John Doe', program: 'Computer Science', admissionYear: '2020'),
-    Student(name: 'Alice Smith', program: 'Engineering', admissionYear: '2019'),
-    Student(name: 'John Doe', program: 'Computer Science', admissionYear: '2020'),
-    Student(name: 'Alice Smith', program: 'Engineering', admissionYear: '2019'),
-    Student(name: 'John Doe', program: 'Computer Science', admissionYear: '2020'),
-    Student(name: 'Alice Smith', program: 'Engineering', admissionYear: '2019'),
-    Student(name: 'John Doe', program: 'Computer Science', admissionYear: '2020'),
-    Student(name: 'Alice Smith', program: 'Engineering', admissionYear: '2019'),
-
-    // Add more dummy students as needed
-  ];
-
+class _ViewProgrammesState extends State<ViewProgrammes> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -84,46 +59,27 @@ class _AlumniStudentState extends State<AlumniStudent> {
               const SizedBox(
                 height: 10,
               ),
-               Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   const Icon(
-                    Icons.person,
+                    Icons.school,
                     color: Colors.grey,
                   ),
                   RichText(
                     text: const TextSpan(
-                        text: "Student",
+                        text: "Programmes",
                         style: TextStyle(
                           fontFamily: 'Poppins',
                           fontSize: 20,
                           letterSpacing: 2,
                           color: kDarkBlue,
                         ),
-                        children: [
-                          TextSpan(
-                            text: "/" ,
-                            style: TextStyle(
-                              fontFamily: 'Poppins',
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                              color: kYellow,
-                            ),
-                          ),
-                          TextSpan(
-                            text: "Alumni," ,
-                            style: TextStyle(
-                              fontFamily: 'Poppins',
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                              color: kOrange,
-                            ),
-                          )
-                        ]),
+                        ),
                   ),
                   ElevatedButton(
                     onPressed: () {},
-                    child: const Text("Add Student"),
+                    child: const Text("New Programme"),
                   ),
                 ],
               ),
@@ -134,12 +90,12 @@ class _AlumniStudentState extends State<AlumniStudent> {
               ListView.builder(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
-                itemCount: students.length,
+                itemCount: programme.length,
                 itemBuilder: (context, index) {
-                  final student = students[index];
+                  final program = programme[index];
                   return ListTile(
-                    title: Text(student.name),
-                    subtitle: Text("Program: ${student.program}"),
+                    title: Text(program.text),
+                    subtitle: Text("Lessons: ${program.lessons}"),
                     trailing: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [

@@ -73,16 +73,21 @@ class Dashboard extends StatelessWidget {
               const SizedBox(
                 height: 15,
               ),
-              const Row(
+               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
+                  const Text(
                     "Programmes",
                     style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                   ),
-                  Text(
-                    "View All",
-                    style: TextStyle(color: kDarkBlue),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, 'view_programmes');
+                    },
+                    child: const Text(
+                      "View All",
+                      style: TextStyle(color: kDarkBlue),
+                    ),
                   ),
                 ],
               ),
@@ -112,8 +117,8 @@ class Dashboard extends StatelessWidget {
               const SizedBox(
                 height: 15,
               ),
-              const ActivityHeader(),
-              const ChartContainer(chart: BarChartContent())
+              // const ActivityHeader(),
+              // const ChartContainer(chart: BarChartContent())
             ],
           ),
         ),

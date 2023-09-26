@@ -1,5 +1,7 @@
 import 'package:alumni_tracker/screens/dashboard/alumni_student.dart';
 import 'package:alumni_tracker/screens/dashboard/dashboard.dart';
+import 'package:alumni_tracker/screens/dashboard/view_courses.dart';
+import 'package:alumni_tracker/screens/dashboard/view_programmes.dart';
 import 'package:alumni_tracker/screens/forgot_password.dart';
 import 'package:alumni_tracker/screens/forgot_password_otp.dart';
 import 'package:alumni_tracker/screens/login_signup.dart';
@@ -31,7 +33,9 @@ class MyApp extends StatelessWidget {
         'reset_password':(context) =>const ResetPassword(),
         'verify_account_otp':(context) =>const VerifyAccountOtp(),
         'dashboard':(context) =>const Dashboard(),
-        'alumni_student':(context) => AlumniStudent(),
+        'alumni_student':(context) => const AlumniStudent(),
+        'view_programmes':(context) => const ViewProgrammes(),
+        'view_courses':(context) => const ViewCourses(),
       },
       onGenerateRoute: (settings) {
         // Handle any additional route generation logic here if needed
