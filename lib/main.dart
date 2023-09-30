@@ -1,5 +1,9 @@
-import 'package:alumni_tracker/screens/dashboard/alumni_student.dart';
+import 'package:alumni_tracker/screens/dashboard/admit_student.dart';
+import 'package:alumni_tracker/screens/dashboard/student_centre.dart';
+import 'package:alumni_tracker/screens/dashboard/change_password.dart';
 import 'package:alumni_tracker/screens/dashboard/dashboard.dart';
+import 'package:alumni_tracker/screens/dashboard/edit_profile.dart';
+import 'package:alumni_tracker/screens/dashboard/user_profile.dart';
 import 'package:alumni_tracker/screens/dashboard/view_courses.dart';
 import 'package:alumni_tracker/screens/dashboard/view_programmes.dart';
 import 'package:alumni_tracker/screens/forgot_password.dart';
@@ -8,6 +12,7 @@ import 'package:alumni_tracker/screens/login_signup.dart';
 import 'package:alumni_tracker/screens/reset_password.dart';
 import 'package:alumni_tracker/screens/verify_account_otp.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 void main() {
   runApp(const MyApp());
@@ -20,6 +25,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+        builder: FToastBuilder(),
       title: "Alumni tracker",
       theme: ThemeData(
         fontFamily: 'Poppins', // Set Poppins as the default font
@@ -33,9 +39,13 @@ class MyApp extends StatelessWidget {
         'reset_password':(context) =>const ResetPassword(),
         'verify_account_otp':(context) =>const VerifyAccountOtp(),
         'dashboard':(context) =>const Dashboard(),
-        'alumni_student':(context) => const AlumniStudent(),
+        'student_centre':(context) => const StudentCentre(),
         'view_programmes':(context) => const ViewProgrammes(),
         'view_courses':(context) => const ViewCourses(),
+        'user_profile':(context) => const UserProfilePage(),
+        'change_password':(context) => const ChangePassword(),
+        'edit_profile':(context) => const EditProfile(),
+        'admit_student':(context) => AdmitStudentPage(),
       },
       onGenerateRoute: (settings) {
         // Handle any additional route generation logic here if needed

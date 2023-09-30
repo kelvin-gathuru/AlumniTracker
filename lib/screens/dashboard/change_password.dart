@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart'; // Import Cupertino Icons
-import '../config/config.dart';
-import '../utilities/builders.dart';
+import '../../config/config.dart';
+import '../../utilities/builders.dart';
 
-class ResetPassword extends StatefulWidget {
-  const ResetPassword({super.key});
+class ChangePassword extends StatefulWidget {
+  const ChangePassword({super.key});
 
   @override
-  _ResetPasswordState createState() => _ResetPasswordState();
+  _ChangePasswordState createState() => _ChangePasswordState();
 }
 
-class _ResetPasswordState extends State<ResetPassword> {
-  final TextEditingController _newResetPasswordController = TextEditingController();
-  final TextEditingController _confirmResetPasswordController = TextEditingController();
+class _ChangePasswordState extends State<ChangePassword> {
+  final TextEditingController _currentPasswordController = TextEditingController();
+  final TextEditingController _newPasswordController = TextEditingController();
+  final TextEditingController _confirmPasswordController = TextEditingController();
   @override
   @override
   Widget build(BuildContext context) {
@@ -36,32 +37,21 @@ class _ResetPasswordState extends State<ResetPassword> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    RichText(
-                      text: TextSpan(
-                          text: "Enter new",
-                          style: TextStyle(
-                            fontFamily: 'Poppins',
-                            fontSize: 25,
-                            letterSpacing: 2,
-                            color: Colors.yellow[700],
-                          ),
-                          children: [
-                            TextSpan(
-                              text: " Password," ,
-                              style: TextStyle(
-                                fontFamily: 'Poppins',
-                                fontSize: 25,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.yellow[700],
-                              ),
-                            )
-                          ]),
+                    IconButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      icon: const Icon(
+                        Icons.arrow_back_rounded,
+                        color: Colors.white,
+                      ),
                     ),
+
                     const SizedBox(
                       height: 5,
                     ),
                     const Text(
-                      "Enter your a new password to reset your account",
+                      "Back",
                       style: TextStyle(
                         fontFamily: 'Poppins',
                         letterSpacing: 1,
@@ -77,10 +67,10 @@ class _ResetPasswordState extends State<ResetPassword> {
           buildBottomHalfContainer(
             context: context,
             showShadow: true,
-            top: 430,
+            top: 460,
             gradientColors: [Colors.orange, Colors.red], // Customize gradient colors
             onPressed: () {
-              Navigator.pushNamed(context, '/');
+              _showChangePasswordConfirmationDialog(context);
             },
           ),
 
@@ -92,7 +82,7 @@ class _ResetPasswordState extends State<ResetPassword> {
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 700),
               curve: Curves.bounceInOut,
-              height:  250,
+              height:  270,
               padding: const EdgeInsets.all(20),
               width: MediaQuery.of(context).size.width - 40,
               margin: const EdgeInsets.symmetric(horizontal: 20),
@@ -116,7 +106,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                           child: Column(
                             children: [
                               const Text(
-                                "RESET PASSWORD",
+                                "CHANGE PASSWORD",
                                 style: TextStyle(
                                     fontFamily: 'Poppins',
                                     fontSize: 16,
@@ -144,11 +134,11 @@ class _ResetPasswordState extends State<ResetPassword> {
           // Trick to add the submit button
           buildBottomHalfContainer(
             context: context,
-            top: 430,
+            top: 460,
             showShadow: false,
             gradientColors: [Colors.orange, Colors.red], // Customize gradient colors
             onPressed: () {
-              Navigator.pushNamed(context, '/');
+              _showChangePasswordConfirmationDialog(context);
             },
           )
 
@@ -164,25 +154,38 @@ class _ResetPasswordState extends State<ResetPassword> {
       margin: const EdgeInsets.only(top: 20),
       child: Column(
         children: [
-          buildTextField(CupertinoIcons.lock, "new password", true, false,_newResetPasswordController),
-          buildTextField(CupertinoIcons.lock, "confirm password", true, false,_confirmResetPasswordController),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-
-              TextButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/');
-                },
-                child: const Text("Go to sign in?",
-                    style: TextStyle(fontSize: 12, color: Palette.textColor1)),
-              )
-            ],
-          )
+          buildTextField(CupertinoIcons.lock, "current password", true, false,_currentPasswordController),
+          buildTextField(CupertinoIcons.lock, "new password", true, false,_newPasswordController),
+          buildTextField(CupertinoIcons.lock, "confirm password", true, false,_confirmPasswordController),
 
         ],
       ),
     );
   }
-
+  Future<void> _showChangePasswordConfirmationDialog(BuildContext context) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // Dialog cannot be dismissed by tapping outside
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Confirm Change Password'),
+          content: const Text('Are you sure you want to change your password?'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the dialog
+              },
+              child: const Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () {
+                // Handle change password here
+              },
+              child: const Text('Sure'),
+            ),
+          ],
+        );
+      },
+    );
+  }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart'; // Import Cupertino Icons
+import 'package:fluttertoast/fluttertoast.dart';
 import '../config/config.dart';
 import '../utilities/builders.dart';
 
@@ -11,7 +12,14 @@ class LoginSignupScreen extends StatefulWidget {
 }
 
 class _LoginSignupScreenState extends State<LoginSignupScreen> {
-  bool isSignupScreen = true;
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _regEmailController = TextEditingController();
+  final TextEditingController _regUsernameController = TextEditingController();
+  final TextEditingController _regPasswordController = TextEditingController();
+  final GlobalKey<FormState> _loginFormKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _signupFormKey = GlobalKey<FormState>();
+  bool isSignupScreen = false;
   bool isRememberMe = false;
   String selectedRole = "Industrial Coordination Officer"; // Default role
 
@@ -92,9 +100,41 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
             top: isSignupScreen ? 535.0 : 430.0,
             gradientColors: [Colors.orange, Colors.red],
             onPressed: isSignupScreen ? () {
-              Navigator.pushNamed(context, 'verify_account_otp');
+              if (_signupFormKey.currentState!.validate()) {
+                Navigator.pushNamed(context, 'verify_account_otp');
+                Fluttertoast.showToast(
+                  msg: "OTP Code Sent",
+                  toastLength: Toast.LENGTH_SHORT,
+                  // Duration for the toast (SHORT or LONG)
+                  gravity: ToastGravity.BOTTOM,
+                  // Toast position (TOP, BOTTOM, CENTER)
+                  timeInSecForIosWeb: 1,
+                  // Duration for iOS and web
+                  backgroundColor: Colors.black54,
+                  // Background color of the toast
+                  textColor: Colors.white,
+                  // Text color of the toast message
+                  fontSize: 16.0, // Font size of the toast message
+                );
+              }
             }:() {
-              Navigator.pushNamed(context, 'dashboard');
+              if (_loginFormKey.currentState!.validate()) {
+                Navigator.pushNamed(context, 'dashboard');
+                Fluttertoast.showToast(
+                  msg: "Success",
+                  toastLength: Toast.LENGTH_SHORT,
+                  // Duration for the toast (SHORT or LONG)
+                  gravity: ToastGravity.BOTTOM,
+                  // Toast position (TOP, BOTTOM, CENTER)
+                  timeInSecForIosWeb: 1,
+                  // Duration for iOS and web
+                  backgroundColor: Colors.black54,
+                  // Background color of the toast
+                  textColor: Colors.white,
+                  // Text color of the toast message
+                  fontSize: 16.0, // Font size of the toast message
+                );
+              }
             },
           ),
           //Main Container for Login and Signup
@@ -196,9 +236,41 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
             top: isSignupScreen ? 535.0 : 430.0,
             gradientColors: [Colors.orange, Colors.red],
             onPressed: isSignupScreen ? () {
-              Navigator.pushNamed(context, 'verify_account_otp');
+              if (_signupFormKey.currentState!.validate()) {
+                Navigator.pushNamed(context, 'verify_account_otp');
+                Fluttertoast.showToast(
+                  msg: "OTP Code Sent",
+                  toastLength: Toast.LENGTH_SHORT,
+                  // Duration for the toast (SHORT or LONG)
+                  gravity: ToastGravity.BOTTOM,
+                  // Toast position (TOP, BOTTOM, CENTER)
+                  timeInSecForIosWeb: 1,
+                  // Duration for iOS and web
+                  backgroundColor: Colors.black54,
+                  // Background color of the toast
+                  textColor: Colors.white,
+                  // Text color of the toast message
+                  fontSize: 16.0, // Font size of the toast message
+                );
+              }
             }:() {
-              Navigator.pushNamed(context, 'dashboard');
+              if (_loginFormKey.currentState!.validate()) {
+                Navigator.pushNamed(context, 'dashboard');
+                Fluttertoast.showToast(
+                  msg: "Success",
+                  toastLength: Toast.LENGTH_SHORT,
+                  // Duration for the toast (SHORT or LONG)
+                  gravity: ToastGravity.BOTTOM,
+                  // Toast position (TOP, BOTTOM, CENTER)
+                  timeInSecForIosWeb: 1,
+                  // Duration for iOS and web
+                  backgroundColor: Colors.black54,
+                  // Background color of the toast
+                  textColor: Colors.white,
+                  // Text color of the toast message
+                  fontSize: 16.0, // Font size of the toast message
+                );
+              }
             },
           ),
           // Bottom buttons
@@ -289,8 +361,17 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
       margin: const EdgeInsets.only(top: 20),
       child: Column(
         children: [
-          buildTextField(CupertinoIcons.mail, "name@gmail.com", false, true),
-          buildTextField(CupertinoIcons.lock, "**********", true, false),
+          Form(
+            key: _loginFormKey,
+            autovalidateMode: AutovalidateMode.disabled,
+            child: Column(
+              children: [
+                buildTextField(CupertinoIcons.mail, "email", false, true, _emailController),
+                buildTextField(CupertinoIcons.lock, "password", true, false, _passwordController),
+              ],
+            ),
+          ),
+
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -328,12 +409,19 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
       margin: const EdgeInsets.only(top: 20),
       child: Column(
         children: [
-          buildTextField(CupertinoIcons.person, "username", false, false),
-          buildTextField(CupertinoIcons.mail, "email", false, true),
-          buildTextField(CupertinoIcons.lock, "password", true, false),
-          // Add the dropdown field
-          buildDropdownField(),
-
+          Form(
+            key: _signupFormKey,
+            autovalidateMode: AutovalidateMode.disabled,
+            child: Column(
+              children: [
+                buildTextField(CupertinoIcons.person, "username", false, false, _regUsernameController),
+                buildTextField(CupertinoIcons.mail, "email", false, true, _regEmailController),
+                buildTextField(CupertinoIcons.lock, "password", true, false, _regPasswordController),
+                // Add the dropdown field
+                buildDropdownField(),
+              ],
+            ),
+          ),
         ],
       ),
     );

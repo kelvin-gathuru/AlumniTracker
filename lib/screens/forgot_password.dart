@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart'; // Import Cupertino Icons
+import 'package:fluttertoast/fluttertoast.dart';
 import '../config/config.dart';
 import '../utilities/builders.dart';
 
@@ -11,6 +12,8 @@ class ForgotPassword extends StatefulWidget {
 }
 
 class _ForgotPasswordState extends State<ForgotPassword> {
+  final TextEditingController _forgotPasswordEmailController = TextEditingController();
+  final GlobalKey<FormState> _forgotPasswordFormKey = GlobalKey<FormState>();
   @override
   @override
   Widget build(BuildContext context) {
@@ -45,7 +48,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                           ),
                           children: [
                             TextSpan(
-                              text: " Password?," ,
+                              text: " Password?,",
                               style: TextStyle(
                                 fontFamily: 'Poppins',
                                 fontSize: 25,
@@ -75,9 +78,28 @@ class _ForgotPasswordState extends State<ForgotPassword> {
           buildBottomHalfContainer(
             context: context,
             showShadow: true,
-            gradientColors: [Colors.orange, Colors.red], // Customize gradient colors
+            gradientColors: [
+              Colors.orange,
+              Colors.red
+            ], // Customize gradient colors
             onPressed: () {
-              Navigator.pushNamed(context, 'forgot_password_otp');
+              if (_forgotPasswordFormKey.currentState!.validate()) {
+                Navigator.pushNamed(context, 'forgot_password_otp');
+                Fluttertoast.showToast(
+                  msg: "OTP Code Sent",
+                  toastLength: Toast.LENGTH_SHORT,
+                  // Duration for the toast (SHORT or LONG)
+                  gravity: ToastGravity.BOTTOM,
+                  // Toast position (TOP, BOTTOM, CENTER)
+                  timeInSecForIosWeb: 1,
+                  // Duration for iOS and web
+                  backgroundColor: Colors.black54,
+                  // Background color of the toast
+                  textColor: Colors.white,
+                  // Text color of the toast message
+                  fontSize: 16.0, // Font size of the toast message
+                );
+              }
             },
           ),
 
@@ -85,11 +107,11 @@ class _ForgotPasswordState extends State<ForgotPassword> {
           AnimatedPositioned(
             duration: const Duration(milliseconds: 700),
             curve: Curves.bounceInOut,
-            top:  230,
+            top: 230,
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 700),
               curve: Curves.bounceInOut,
-              height:  220,
+              height: 220,
               padding: const EdgeInsets.all(20),
               width: MediaQuery.of(context).size.width - 40,
               margin: const EdgeInsets.symmetric(horizontal: 20),
@@ -109,7 +131,6 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         GestureDetector(
-
                           child: Column(
                             children: [
                               const Text(
@@ -120,19 +141,18 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                                     fontWeight: FontWeight.bold,
                                     color: Palette.textColor1),
                               ),
-                                Container(
-                                  margin: const EdgeInsets.only(top: 3),
-                                  height: 2,
-                                  width: 55,
-                                  color: Colors.orange,
-                                )
+                              Container(
+                                margin: const EdgeInsets.only(top: 3),
+                                height: 2,
+                                width: 55,
+                                color: Colors.orange,
+                              )
                             ],
                           ),
                         ),
-
                       ],
                     ),
-                     buildForgotPasswordSection()
+                    buildForgotPasswordSection()
                   ],
                 ),
               ),
@@ -142,12 +162,30 @@ class _ForgotPasswordState extends State<ForgotPassword> {
           buildBottomHalfContainer(
             context: context,
             showShadow: false,
-            gradientColors: [Colors.orange, Colors.red], // Customize gradient colors
+            gradientColors: [
+              Colors.orange,
+              Colors.red
+            ], // Customize gradient colors
             onPressed: () {
-              Navigator.pushNamed(context, 'forgot_password_otp');
+              if (_forgotPasswordFormKey.currentState!.validate()) {
+                Navigator.pushNamed(context, 'forgot_password_otp');
+                Fluttertoast.showToast(
+                  msg: "OTP Code Sent",
+                  toastLength: Toast.LENGTH_SHORT,
+                  // Duration for the toast (SHORT or LONG)
+                  gravity: ToastGravity.BOTTOM,
+                  // Toast position (TOP, BOTTOM, CENTER)
+                  timeInSecForIosWeb: 1,
+                  // Duration for iOS and web
+                  backgroundColor: Colors.black54,
+                  // Background color of the toast
+                  textColor: Colors.white,
+                  // Text color of the toast message
+                  fontSize: 16.0, // Font size of the toast message
+                );
+              }
             },
           )
-
 
           // Bottom buttons
         ],
@@ -160,11 +198,14 @@ class _ForgotPasswordState extends State<ForgotPassword> {
       margin: const EdgeInsets.only(top: 20),
       child: Column(
         children: [
-          buildTextField(CupertinoIcons.mail, "email", false, true),
+          Form(
+            key: _forgotPasswordFormKey,
+            autovalidateMode: AutovalidateMode.onUserInteraction, // Set autovalidateMode
+            child: buildTextField(CupertinoIcons.mail, "email", false, true,_forgotPasswordEmailController),
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-
               TextButton(
                 onPressed: () {
                   Navigator.pushNamed(context, '/');
@@ -174,10 +215,8 @@ class _ForgotPasswordState extends State<ForgotPassword> {
               )
             ],
           )
-
         ],
       ),
     );
   }
-
 }

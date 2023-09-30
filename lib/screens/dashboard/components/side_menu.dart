@@ -1,5 +1,5 @@
 
-import 'package:alumni_tracker/screens/dashboard/alumni_student.dart';
+import 'package:alumni_tracker/screens/dashboard/student_centre.dart';
 import 'package:alumni_tracker/screens/dashboard/dashboard.dart';
 import 'package:alumni_tracker/screens/login_signup.dart';
 import 'package:alumni_tracker/screens/reset_password.dart';
@@ -12,7 +12,33 @@ class SideMenu extends StatelessWidget {
   const SideMenu({
     Key? key,
   }) : super(key: key);
-
+  Future<void> _showLogoutConfirmationDialog(BuildContext context) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // Dialog cannot be dismissed by tapping outside
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Confirm Logout'),
+          content: const Text('Are you sure you want to log out?'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the dialog
+              },
+              child: const Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () {
+                // Handle logout here
+                Navigator.pushNamed(context, "/"); // Close the dialog
+              },
+              child: const Text('Logout'),
+            ),
+          ],
+        );
+      },
+    );
+  }
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -39,32 +65,27 @@ class SideMenu extends StatelessWidget {
           ),
           DrawerListTile(
             icon: TernavIcons.lightOutline.home_2,
-            title: " Student/Alumni ",
+            title: " Student Centre",
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const AlumniStudent()),
+                MaterialPageRoute(builder: (context) => const StudentCentre()),
               );
             },
           ),
           DrawerListTile(
-            icon: TernavIcons.lightOutline.menu,
-            title: "Placement History",
-            onTap: () {},
-          ),
-          DrawerListTile(
-            icon: TernavIcons.lightOutline.folder,
-            title: "Employment History ",
+            icon: TernavIcons.lightOutline.bookmark,
+            title: "Alumni Centre",
             onTap: () {},
           ),
           DrawerListTile(
             icon: TernavIcons.lightOutline.chat,
-            title: "Educational Advancement",
+            title: "Trainer Feedback/Appraisal",
             onTap: () {},
           ),
           DrawerListTile(
             icon: TernavIcons.lightOutline.settings,
-            title: "Settings",
+            title: "Help/FAQs",
             onTap: () {},
           ),
           const SizedBox(
@@ -95,10 +116,7 @@ class SideMenu extends StatelessWidget {
                     const Text("Log out", style: TextStyle(color: kDarkBlue)),
                     InkWell(
                       onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const LoginSignupScreen()),
-                        );
+                        _showLogoutConfirmationDialog(context);
                       },
                       child: Container(
                         height: 30,
