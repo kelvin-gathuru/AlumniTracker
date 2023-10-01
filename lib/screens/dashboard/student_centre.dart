@@ -21,20 +21,6 @@ class _StudentCentreState extends State<StudentCentre> {
     Student(name: 'Alice Smith', program: 'Engineering', admissionYear: '2019'),
     Student(name: 'John Doe', program: 'Computer Science', admissionYear: '2020'),
     Student(name: 'Alice Smith', program: 'Engineering', admissionYear: '2019'),
-    Student(name: 'John Doe', program: 'Computer Science', admissionYear: '2020'),
-    Student(name: 'Alice Smith', program: 'Engineering', admissionYear: '2019'),
-    Student(name: 'John Doe', program: 'Computer Science', admissionYear: '2020'),
-    Student(name: 'Alice Smith', program: 'Engineering', admissionYear: '2019'),
-    Student(name: 'John Doe', program: 'Computer Science', admissionYear: '2020'),
-    Student(name: 'Alice Smith', program: 'Engineering', admissionYear: '2019'),
-    Student(name: 'John Doe', program: 'Computer Science', admissionYear: '2020'),
-    Student(name: 'Alice Smith', program: 'Engineering', admissionYear: '2019'),
-    Student(name: 'John Doe', program: 'Computer Science', admissionYear: '2020'),
-    Student(name: 'Alice Smith', program: 'Engineering', admissionYear: '2019'),
-    Student(name: 'John Doe', program: 'Computer Science', admissionYear: '2020'),
-    Student(name: 'Alice Smith', program: 'Engineering', admissionYear: '2019'),
-    Student(name: 'John Doe', program: 'Computer Science', admissionYear: '2020'),
-    Student(name: 'Alice Smith', program: 'Engineering', admissionYear: '2019'),
 
     // Add more dummy students as needed
   ];
@@ -64,11 +50,11 @@ class _StudentCentreState extends State<StudentCentre> {
                     children: [
                       const Icon(
                         Icons.person,
-                        color: Colors.grey,
+                        color: kDarkBlue,
                       ),
                       RichText(
                         text: const TextSpan(
-                          text: "Students",
+                          text: "STUDENTS",
                           style: TextStyle(
                             fontFamily: 'Poppins',
                             fontSize: 20,
@@ -86,11 +72,11 @@ class _StudentCentreState extends State<StudentCentre> {
                     style: ElevatedButton.styleFrom(
                       primary: kDarkBlue, // Change the button color
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20.0),
+                        borderRadius: BorderRadius.circular(0),
                       ),
                     ),
                     child: const Text(
-                      "Admit Student",
+                      "ADMISSION",
                       style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
@@ -112,12 +98,14 @@ class _StudentCentreState extends State<StudentCentre> {
                   return Container(
                     decoration: BoxDecoration(
                       border: Border.all(
-                        color: Colors.grey, // Add border color
+                        color: Colors.white, // Add border color
                         width: 1.0, // Adjust border width as needed
                       ),
-                      borderRadius: BorderRadius.circular(10.0), // Add border radius
+                      color: kLightBlue,
+                      borderRadius: BorderRadius.circular(15.0), // Add border radius
                     ),
-                    margin: const EdgeInsets.only(bottom: 10.0),
+                    margin: const EdgeInsets.only(bottom: 15.0),
+
                     child: ListTile(
                       title: Text(student.name),
                       subtitle: Text("Program: ${student.program}"),

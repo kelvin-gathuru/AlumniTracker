@@ -4,6 +4,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import '../config/config.dart';
 import '../utilities/builders.dart';
 
+
 class LoginSignupScreen extends StatefulWidget {
   const LoginSignupScreen({super.key});
 
@@ -145,7 +146,7 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 700),
               curve: Curves.bounceInOut,
-              height: isSignupScreen ? 380 : 250,
+              height: isSignupScreen ? 450 : 300,
               padding: const EdgeInsets.all(20),
               width: MediaQuery.of(context).size.width - 40,
               margin: const EdgeInsets.symmetric(horizontal: 20),
@@ -233,7 +234,7 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
           buildBottomHalfContainer(
             context: context,
             showShadow: false,
-            top: isSignupScreen ? 535.0 : 430.0,
+            top: isSignupScreen ? 600.0 : 490.0,
             gradientColors: [Colors.orange, Colors.red],
             onPressed: isSignupScreen ? () {
               if (_signupFormKey.currentState!.validate()) {

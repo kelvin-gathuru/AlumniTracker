@@ -21,7 +21,6 @@ Widget buildRequiredTag() {
     ),
   );
 }
-
 Widget buildTextField(
     IconData icon,
     String hintText,
@@ -46,9 +45,27 @@ Widget buildTextField(
             if (isEmail && !RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(value!)) {
               return 'Please enter a valid email';
             }
+            if (isPassword) {
+              if (value!.length < 8) {
+                return 'Password must be at least 8 characters long';
+              }
+
+              bool hasUppercase = value.contains(RegExp(r'[A-Z]'));
+              bool hasLowercase = value.contains(RegExp(r'[a-z]'));
+              bool hasSpecialChar = value.contains(RegExp(r'[@$!%*?&,.+=)(|/]'));
+
+              if (!hasUppercase || !hasLowercase || !hasSpecialChar) {
+                String missingChars = '';
+                if (!hasUppercase) missingChars += 'uppercase, ';
+                if (!hasLowercase) missingChars += 'lowercase, ';
+                if (!hasSpecialChar) missingChars += 'special character, ';
+
+                missingChars = missingChars.substring(0, missingChars.length - 2); // Remove the trailing comma and space
+                return 'Password must have a $missingChars';
+              }
+            }
             return null; // Return null for other cases (no error message)
           },
-
           decoration: InputDecoration(
             prefixIcon: Icon(
               icon,
@@ -68,6 +85,30 @@ Widget buildTextField(
   );
 }
 
+
+Widget buildFeedbackTextArea(TextEditingController controller) {
+  return Padding(
+    padding: const EdgeInsets.only(bottom: 8.0),
+    child: TextFormField(
+      controller: controller,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      maxLines: 5, // Allow multiple lines for feedback
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Feedback is required';
+        }
+        return null; // Return null for other cases (no error message)
+      },
+      decoration: const InputDecoration(
+        border: OutlineInputBorder(
+          borderSide: BorderSide(color: Palette.textColor1),
+          borderRadius: BorderRadius.all(Radius.circular(35.0)),
+        ),
+        contentPadding: EdgeInsets.all(10),
+      ),
+    ),
+  );
+}
 
 
 Widget buildBottomHalfContainer({
@@ -152,7 +193,7 @@ Widget buildPassportPhotoField() {
               : null,
           child: _selectedImage == null
               ? IconButton(
-            icon: Icon(
+            icon: const Icon(
               Icons.camera_alt,
               size: 30,
               color: Colors.blue,
@@ -175,4 +216,41 @@ Widget buildPassportPhotoField() {
       ],
     ),
   );
+}
+class AccessDeniedOverlay extends StatelessWidget {
+  const AccessDeniedOverlay({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Colors.black.withOpacity(0.7),
+      child: const Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              Icons.lock,
+              size: 100,
+              color: Colors.white,
+            ),
+            Text(
+              'Access Denied!',
+              style: TextStyle(
+                color: kOrange,
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            Text(
+              'You do not have permission to access this page.',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 }

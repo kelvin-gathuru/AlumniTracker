@@ -1,6 +1,9 @@
 
+import 'package:alumni_tracker/screens/dashboard/alumni_centre.dart';
+import 'package:alumni_tracker/screens/dashboard/faqs_and_feedback.dart';
 import 'package:alumni_tracker/screens/dashboard/student_centre.dart';
 import 'package:alumni_tracker/screens/dashboard/dashboard.dart';
+import 'package:alumni_tracker/screens/dashboard/trainer_appraisal.dart';
 import 'package:alumni_tracker/screens/login_signup.dart';
 import 'package:alumni_tracker/screens/reset_password.dart';
 import 'package:flutter/material.dart';
@@ -76,17 +79,32 @@ class SideMenu extends StatelessWidget {
           DrawerListTile(
             icon: TernavIcons.lightOutline.bookmark,
             title: "Alumni Centre",
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const AlumniCentre()),
+              );
+            },
           ),
           DrawerListTile(
             icon: TernavIcons.lightOutline.chat,
             title: "Trainer Feedback/Appraisal",
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const TrainerAppraisal()),
+              );
+            },
           ),
           DrawerListTile(
             icon: TernavIcons.lightOutline.settings,
             title: "Help/FAQs",
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const FaqsAndFeedbackPage()),
+              );
+            },
           ),
           const SizedBox(
             height: 10,
@@ -126,7 +144,7 @@ class SideMenu extends StatelessWidget {
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: const Icon(
-                          Icons.keyboard_double_arrow_right_rounded,
+                          Icons.arrow_circle_right,
                           color: kDarkBlue,
                         ),
                       ),
