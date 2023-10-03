@@ -1,10 +1,15 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
+import '../../config/config.dart';
 import '../../utilities/builders.dart';
 import 'components/app_bar.dart';
 
 class AdmitStudentPage extends StatefulWidget {
+
   String userRole; // You should pass the user's role to this widget
 
   AdmitStudentPage({super.key, required this.userRole});
@@ -14,6 +19,100 @@ class AdmitStudentPage extends StatefulWidget {
 }
 
 class _AdmitStudentPageState extends State<AdmitStudentPage> {
+
+  XFile? image;
+
+  final ImagePicker picker = ImagePicker();
+
+//we can upload image from camera or from gallery based on parameter
+  Future getImage(ImageSource media) async {
+    var img = await picker.pickImage(source: media);
+
+    setState(() {
+      image = img;
+    });
+  }
+
+  void myAlert() {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+            title: const Text('Please choose media to select'),
+            content: SizedBox(
+              height: MediaQuery.of(context).size.height / 6,
+              child: Column(
+                children: [
+                  ElevatedButton(
+                    //if user click this button, user can upload image from gallery
+                    onPressed: () {
+                      Navigator.pop(context);
+                      getImage(ImageSource.gallery);
+                    },
+                    child: const Row(
+                      children: [
+                        Icon(Icons.image),
+                        Text('From Gallery'),
+                      ],
+                    ),
+                  ),
+                  ElevatedButton(
+                    //if user click this button. user can upload image from camera
+                    onPressed: () {
+                      Navigator.pop(context);
+                      getImage(ImageSource.camera);
+                    },
+                    child: const Row(
+                      children: [
+                        Icon(Icons.camera),
+                        Text('From Camera'),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        });
+  }
+  // Create a custom widget for the "Passport Photo" field
+  Widget buildPassportPhotoField() {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            "Passport Photo",
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.normal,color: Palette.textColor1),
+          ),
+          const SizedBox(height: 8),
+
+          CircleAvatar(
+            radius: 50, // Adjust the size as needed
+            backgroundColor: Colors.grey[200],
+            child: image != null
+                ? ClipRRect(
+              borderRadius: BorderRadius.circular(50), // Make it a circle
+              child: Image.file(
+                File(image!.path),
+                fit: BoxFit.cover, // Adjust the fit as needed
+                width: 100, // Adjust the width as needed
+                height: 100, // Adjust the height as needed
+              ),
+            )
+                : const Icon(
+              Icons.person, // Use your desired icon
+              size: 50, // Adjust the size of the icon as needed
+              color: Colors.grey, // Adjust the color of the icon as needed
+            ),
+          ),
+        ],
+      ),
+    );
+  }
   final List<GlobalKey<FormState>> _formKeys = [
     GlobalKey<FormState>(),
     GlobalKey<FormState>(),
@@ -43,7 +142,7 @@ class _AdmitStudentPageState extends State<AdmitStudentPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        title: "ADMIT NEW STUDENT",
+        title: "REGISTER NEW STUDENT",
       ),
       body: Stack(
         children: [
@@ -88,7 +187,12 @@ class _AdmitStudentPageState extends State<AdmitStudentPage> {
                   autovalidateMode: AutovalidateMode.disabled,
                   child: Column(
                     children: [
-                      buildPassportPhotoField(),
+                      GestureDetector(
+                        onTap: () {
+                          myAlert();
+                        },
+                        child: buildPassportPhotoField(),
+                      ),
                       buildTextField(CupertinoIcons.lock, "Registration Number",
                           false, false, registrationNumberController),
                       buildTextField(

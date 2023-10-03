@@ -4,7 +4,6 @@ import 'package:image_picker/image_picker.dart';
 import '../config/config.dart';
 import 'dart:io';
 
-File? _selectedImage;
 Widget buildRequiredTag() {
   return Container(
     padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -170,50 +169,6 @@ Widget buildBottomHalfContainer({
               : const Center(),
         ),
       ),
-    ),
-  );
-}
-// Create a custom widget for the "Passport Photo" field
-Widget buildPassportPhotoField() {
-  return Padding(
-    padding: const EdgeInsets.only(bottom: 8.0),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text(
-          "Passport Photo",
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.normal,color: Palette.textColor1),
-        ),
-        const SizedBox(height: 8),
-        CircleAvatar(
-          radius: 50, // Adjust the size as needed
-          backgroundColor: Colors.grey[200],
-          backgroundImage: _selectedImage != null
-              ? FileImage(_selectedImage!) // Show selected image
-              : null,
-          child: _selectedImage == null
-              ? IconButton(
-            icon: const Icon(
-              Icons.camera_alt,
-              size: 30,
-              color: Colors.blue,
-            ),
-            onPressed: () async {
-              final picker = ImagePicker();
-              final pickedImage = await picker.pickImage(
-                source: ImageSource.gallery, // You can change this to ImageSource.camera for camera access
-              );
-
-              if (pickedImage != null) {
-                // Set the selected image to the state variable
-
-              }
-            },
-
-          )
-              : null,
-        ),
-      ],
     ),
   );
 }

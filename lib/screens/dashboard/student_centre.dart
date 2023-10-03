@@ -76,7 +76,7 @@ class _StudentCentreState extends State<StudentCentre> {
                       ),
                     ),
                     child: const Text(
-                      "ADMISSION",
+                      "REGISTER",
                       style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,

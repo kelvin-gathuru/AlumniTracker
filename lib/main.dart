@@ -49,7 +49,7 @@ class MyApp extends StatelessWidget {
         'user_profile':(context) => const UserProfilePage(),
         'change_password':(context) => const ChangePassword(),
         'edit_profile':(context) => const EditProfile(),
-        'admit_student':(context) => AdmitStudentPage(userRole: 'Admin',),
+        'admit_student':(context) => AdmitStudentPage(userRole: 'admin',),
         'faqs_feedback':(context) => const FaqsAndFeedbackPage(),
         'trainer_feedback':(context) => const TrainerAppraisal(),
       },
