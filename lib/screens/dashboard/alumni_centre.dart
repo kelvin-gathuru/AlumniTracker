@@ -68,7 +68,7 @@ class _AlumniCentreState extends State<AlumniCentre> {
                       ),
                       RichText(
                         text: const TextSpan(
-                          text: "ALUMNI",
+                          text: " ALUMNI",
                           style: TextStyle(
                             fontFamily: 'Poppins',
                             fontSize: 20,

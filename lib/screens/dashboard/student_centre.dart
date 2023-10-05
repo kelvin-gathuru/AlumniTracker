@@ -54,7 +54,7 @@ class _StudentCentreState extends State<StudentCentre> {
                       ),
                       RichText(
                         text: const TextSpan(
-                          text: "STUDENTS",
+                          text: " STUDENTS",
                           style: TextStyle(
                             fontFamily: 'Poppins',
                             fontSize: 20,
@@ -142,10 +142,17 @@ class _StudentCentreState extends State<StudentCentre> {
                               ),
                             ),
                             const PopupMenuItem(
-                              value: "discharge",
+                              value: "placement",
+                              child: ListTile(
+                                leading: Icon(Icons.school),
+                                title: Text("Placement"),
+                              ),
+                            ),
+                            const PopupMenuItem(
+                              value: "gradualize",
                               child: ListTile(
                                 leading: Icon(Icons.exit_to_app),
-                                title: Text("Discharge"),
+                                title: Text("Gradualize"),
                               ),
                             ),
                           ];
@@ -159,7 +166,7 @@ class _StudentCentreState extends State<StudentCentre> {
                             // Handle parents action
                           } else if (value == "academics") {
                             // Handle academics action
-                          } else if (value == "discharge") {
+                          } else if (value == "gradualize") {
                             // Handle discharge action
                           }
                         },
