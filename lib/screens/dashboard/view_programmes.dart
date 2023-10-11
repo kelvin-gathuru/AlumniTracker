@@ -1,4 +1,5 @@
 import 'package:alumni_tracker/config/config.dart';
+import 'package:alumni_tracker/screens/dashboard/_programmesAdd.dart';
 import 'package:flutter/material.dart';
 
 import '../../data/data.dart';
@@ -35,31 +36,50 @@ class _ViewProgrammesState extends State<ViewProgrammes> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               // ... App bar and title ...
-
-              const SizedBox(
-                height: 10,
-              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Icon(
-                    Icons.school,
-                    color: Colors.grey,
-                  ),
-                  RichText(
-                    text: const TextSpan(
-                        text: "Programmes",
-                        style: TextStyle(
-                          fontFamily: 'Poppins',
-                          fontSize: 20,
-                          letterSpacing: 2,
-                          color: kDarkBlue,
+                  Row(
+                    children: [
+                      const Icon(
+                        Icons.school,
+                        color: kDarkBlue,
+                      ),
+                      RichText(
+                        text: const TextSpan(
+                          text: " PROGRAMS",
+                          style: TextStyle(
+                            fontFamily: 'Poppins',
+                            fontSize: 20,
+                            letterSpacing: 1,
+                            color: kDarkBlue,
+                          ),
                         ),
-                        ),
+                      ),
+                    ],
                   ),
                   ElevatedButton(
-                    onPressed: () {},
-                    child: const Text("New Programme"),
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AddNewProgramme();
+                        },
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      primary: kDarkBlue, // Change the button color
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(0),
+                      ),
+                    ),
+                    child: const Text(
+                      "NEW PROGRAMME",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -73,7 +93,17 @@ class _ViewProgrammesState extends State<ViewProgrammes> {
                 itemCount: programme.length,
                 itemBuilder: (context, index) {
                   final program = programme[index];
-                  return ListTile(
+                  return Container(
+                      decoration: BoxDecoration(
+                      border: Border.all(
+                      color: Colors.white, // Add border color
+                      width: 1.0, // Adjust border width as needed
+                  ),
+                  color: kLightBlue,
+                  borderRadius: BorderRadius.circular(15.0), // Add border radius
+                  ),
+                  margin: const EdgeInsets.only(bottom: 15.0),
+                  child: ListTile(
                     title: Text(program.text),
                     subtitle: Text("Lessons: ${program.lessons}"),
                     trailing: Row(
@@ -93,6 +123,7 @@ class _ViewProgrammesState extends State<ViewProgrammes> {
                         ),
                       ],
                     ),
+                  ),
                   );
                 },
               ),

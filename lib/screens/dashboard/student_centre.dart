@@ -1,7 +1,11 @@
 import 'package:alumni_tracker/config/config.dart';
+import 'package:alumni_tracker/screens/dashboard/_editStudentAcademics.dart';
+import 'package:alumni_tracker/screens/dashboard/_editStudentParent.dart';
+import 'package:alumni_tracker/screens/dashboard/_editStudentProfile.dart';
 import 'package:flutter/material.dart';
 
 import '../../model/student_model.dart';
+import '_editStudentContact.dart';
 import 'components/app_bar.dart';
 import 'components/side_menu.dart';
 
@@ -11,7 +15,32 @@ class StudentCentre extends StatefulWidget {
   @override
   _StudentCentreState createState() => _StudentCentreState();
 }
-
+Future<void> _showGraduateConfirmationDialog(BuildContext context) async {
+  return showDialog<void>(
+    context: context,
+    barrierDismissible: false, // Dialog cannot be dismissed by tapping outside
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: const Text('Confirm Graduation'),
+        content: const Text('Are you sure the student is now an alumni?'),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop(); // Close the dialog
+            },
+            child: const Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () {
+              // Handle logout here
+            },
+            child: const Text('Ok'),
+          ),
+        ],
+      );
+    },
+  );
+}
 class _StudentCentreState extends State<StudentCentre> {
   // Dummy student data
   final List<Student> students = [
@@ -149,25 +178,47 @@ class _StudentCentreState extends State<StudentCentre> {
                               ),
                             ),
                             const PopupMenuItem(
-                              value: "gradualize",
+                              value: "graduate",
                               child: ListTile(
                                 leading: Icon(Icons.exit_to_app),
-                                title: Text("Gradualize"),
+                                title: Text("Graduate"),
                               ),
                             ),
                           ];
                         },
                         onSelected: (String? value) {
                           if (value == "profile") {
-                            // Handle profile action
+                            showDialog(
+                              context: context,
+                              builder: (context) {
+                                return EditStudentProfile();
+                              },
+                            );
                           } else if (value == "contacts") {
-                            // Handle contacts action
+                            showDialog(
+                              context: context,
+                              builder: (context) {
+                                return EditStudentContact();
+                              },
+                            );
                           } else if (value == "parents") {
-                            // Handle parents action
+                            showDialog(
+                              context: context,
+                              builder: (context) {
+                                return EditStudentParent();
+                              },
+                            );
                           } else if (value == "academics") {
-                            // Handle academics action
-                          } else if (value == "gradualize") {
-                            // Handle discharge action
+                            showDialog(
+                              context: context,
+                              builder: (context) {
+                                return EditStudentacademics();
+                              },
+                            );
+                          } else if (value == "placement") {
+                          // Handle academics action
+                          } else if (value == "graduate") {
+                            _showGraduateConfirmationDialog(context);
                           }
                         },
                       )

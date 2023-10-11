@@ -2,6 +2,10 @@ import 'package:alumni_tracker/config/config.dart';
 import 'package:flutter/material.dart';
 
 import '../../model/student_model.dart';
+import '_editStudentAcademics.dart';
+import '_editStudentContact.dart';
+import '_editStudentParent.dart';
+import '_editStudentProfile.dart';
 import 'components/app_bar.dart';
 import 'components/side_menu.dart';
 
@@ -163,6 +167,13 @@ class _AlumniCentreState extends State<AlumniCentre> {
                                 ),
                               ),
                               const PopupMenuItem(
+                                value: "placement",
+                                child: ListTile(
+                                  leading: Icon(Icons.school),
+                                  title: Text("Placement"),
+                                ),
+                              ),
+                              const PopupMenuItem(
                                 value: "educationAdvancement",
                                 child: ListTile(
                                   leading: Icon(Icons.school_outlined),
@@ -170,7 +181,7 @@ class _AlumniCentreState extends State<AlumniCentre> {
                                 ),
                               ),
                               const PopupMenuItem(
-                                value: "Employment",
+                                value: "employment",
                                 child: ListTile(
                                   leading: Icon(Icons.add_box_outlined),
                                   title: Text("Employment"),
@@ -180,14 +191,38 @@ class _AlumniCentreState extends State<AlumniCentre> {
                           },
                           onSelected: (String? value) {
                             if (value == "profile") {
-                              // Handle profile action
+                              showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return EditStudentProfile();
+                                },
+                              );
                             } else if (value == "contacts") {
-                              // Handle contacts action
+                              showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return EditStudentContact();
+                                },
+                              );
                             } else if (value == "parents") {
-                              // Handle parents action
+                              showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return EditStudentParent();
+                                },
+                              );
                             } else if (value == "academics") {
-                              // Handle academics action
-                            } else if (value == "discharge") {
+                              showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return EditStudentacademics();
+                                },
+                              );
+                            }  else if (value == "placement") {
+                              // Handle discharge action
+                            } else if (value == "educationAdvancement") {
+                              // Handle discharge action
+                            } else if (value == "employment") {
                               // Handle discharge action
                             }
                           },

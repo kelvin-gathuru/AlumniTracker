@@ -11,6 +11,7 @@ class EditProfile extends StatefulWidget {
 }
 
 class _EditProfileState extends State<EditProfile> {
+  final GlobalKey<FormState> _editProfileFormKey = GlobalKey<FormState>();
   final TextEditingController _usernameController = TextEditingController();
   @override
   @override
@@ -68,7 +69,9 @@ class _EditProfileState extends State<EditProfile> {
             top: 400,
             gradientColors: [Colors.orange, Colors.red], // Customize gradient colors
             onPressed: () {
-              _showChangePasswordConfirmationDialog(context);
+              if (_editProfileFormKey.currentState!.validate()) {
+                _showChangeUsernameConfirmationDialog(context);
+              }
             },
           ),
 
@@ -144,7 +147,10 @@ class _EditProfileState extends State<EditProfile> {
             showShadow: false,
             gradientColors: [Colors.orange, Colors.red], // Customize gradient colors
             onPressed: () {
-              _showChangePasswordConfirmationDialog(context);
+              if (_editProfileFormKey.currentState!.validate()) {
+                _showChangeUsernameConfirmationDialog(context);
+              }
+
             },
           )
 
@@ -160,19 +166,23 @@ class _EditProfileState extends State<EditProfile> {
       margin: const EdgeInsets.only(top: 20),
       child: Column(
         children: [
-          buildTextField(CupertinoIcons.lock, "username", false, false,_usernameController),
+          Form(
+            key: _editProfileFormKey,
+            autovalidateMode: AutovalidateMode.disabled,
+           child: buildTextField(CupertinoIcons.lock, "username", false, false,_usernameController),
+          ),
         ],
       ),
     );
   }
-  Future<void> _showChangePasswordConfirmationDialog(BuildContext context) async {
+  Future<void> _showChangeUsernameConfirmationDialog(BuildContext context) async {
     return showDialog<void>(
       context: context,
       barrierDismissible: false, // Dialog cannot be dismissed by tapping outside
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Confirm Change Password'),
-          content: const Text('Are you sure you want to change your password?'),
+          title: const Text('Confirm Change Username'),
+          content: const Text('Are you sure you want to change your username?'),
           actions: <Widget>[
             TextButton(
               onPressed: () {

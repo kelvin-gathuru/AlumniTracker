@@ -1,5 +1,7 @@
+import 'package:alumni_tracker/screens/dashboard/_editStudentContact.dart';
 import 'package:alumni_tracker/screens/dashboard/admit_student.dart';
 import 'package:alumni_tracker/screens/dashboard/alumni_centre.dart';
+import 'package:alumni_tracker/screens/dashboard/_editStudentProfile.dart';
 import 'package:alumni_tracker/screens/dashboard/faqs_and_feedback.dart';
 import 'package:alumni_tracker/screens/dashboard/student_centre.dart';
 import 'package:alumni_tracker/screens/dashboard/change_password.dart';

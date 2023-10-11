@@ -1,4 +1,5 @@
 import 'package:alumni_tracker/config/config.dart';
+import 'package:alumni_tracker/screens/dashboard/_courseAdd.dart';
 import 'package:flutter/material.dart';
 
 import '../../data/data.dart';
@@ -41,24 +42,47 @@ class _ViewCoursesState extends State<ViewCourses> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Icon(
-                    Icons.school_outlined,
-                    color: Colors.grey,
-                  ),
-                  RichText(
-                    text: const TextSpan(
-                      text: "Courses",
-                      style: TextStyle(
-                        fontFamily: 'Poppins',
-                        fontSize: 20,
-                        letterSpacing: 2,
+                  Row(
+                    children: [
+                      const Icon(
+                        Icons.school,
                         color: kDarkBlue,
                       ),
-                    ),
+                      RichText(
+                        text: const TextSpan(
+                          text: " COURSES",
+                          style: TextStyle(
+                            fontFamily: 'Poppins',
+                            fontSize: 20,
+                            letterSpacing: 1,
+                            color: kDarkBlue,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                   ElevatedButton(
-                    onPressed: () {},
-                    child: const Text("New Course"),
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AddNewCourse();
+                        },
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      primary: kDarkBlue, // Change the button color
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(0),
+                      ),
+                    ),
+                    child: const Text(
+                      "NEW COURSE",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -72,7 +96,17 @@ class _ViewCoursesState extends State<ViewCourses> {
                 itemCount: course.length,
                 itemBuilder: (context, index) {
                   final courses = course[index];
-                  return ListTile(
+                  return Container(
+                      decoration: BoxDecoration(
+                      border: Border.all(
+                      color: Colors.white, // Add border color
+                      width: 1.0, // Adjust border width as needed
+                  ),
+                  color: kLightBlue,
+                  borderRadius: BorderRadius.circular(15.0), // Add border radius
+                  ),
+                  margin: const EdgeInsets.only(bottom: 15.0),
+                  child: ListTile(
                     title: Text(courses.heading),
                     subtitle: Text(courses.subHeading),
                     trailing: Row(
@@ -92,6 +126,7 @@ class _ViewCoursesState extends State<ViewCourses> {
                         ),
                       ],
                     ),
+                  ),
                   );
                 },
               ),
