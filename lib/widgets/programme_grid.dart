@@ -3,8 +3,8 @@ import 'package:percent_indicator/percent_indicator.dart';
 
 import '../data/data.dart';
 
-class CourseGrid extends StatelessWidget {
-  const CourseGrid({Key? key}) : super(key: key);
+class ProgrammeGrid extends StatelessWidget {
+  const ProgrammeGrid({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -194,28 +194,28 @@ class _AlumniCentreState extends State<AlumniCentre> {
                               showDialog(
                                 context: context,
                                 builder: (context) {
-                                  return EditStudentProfile();
+                                  return EditStudentProfile(userRole: 'Admin',);
                                 },
                               );
                             } else if (value == "contacts") {
                               showDialog(
                                 context: context,
                                 builder: (context) {
-                                  return EditStudentContact();
+                                  return EditStudentContact(userRole: "Admin",);
                                 },
                               );
                             } else if (value == "parents") {
                               showDialog(
                                 context: context,
                                 builder: (context) {
-                                  return EditStudentParent();
+                                  return EditStudentParent(userRole: 'Admin',);
                                 },
                               );
                             } else if (value == "academics") {
                               showDialog(
                                 context: context,
                                 builder: (context) {
-                                  return EditStudentacademics();
+                                  return EditStudentacademics(userRole: 'Admin');
                                 },
                               );
                             }  else if (value == "placement") {

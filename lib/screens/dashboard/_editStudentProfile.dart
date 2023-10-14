@@ -8,6 +8,9 @@ import 'package:image_picker/image_picker.dart';
 import '../../utilities/builders.dart';
 
 class EditStudentProfile extends StatefulWidget {
+  String userRole;
+  EditStudentProfile({super.key, required this.userRole});
+
   @override
   _EditStudentProfileState createState() => _EditStudentProfileState();
 }
@@ -117,106 +120,113 @@ class _EditStudentProfileState extends State<EditStudentProfile> {
 
   @override
   Widget build(BuildContext context) {
-    return Align(
-      alignment: Alignment.topCenter, // Align to the top of the screen
-      child: Material(
-        type: MaterialType.transparency,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              width: 400,
-              padding: EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: Column(
-                children: [
-                  Align(
-                    alignment: Alignment.topRight,
-                    child: IconButton(
-                      icon: Icon(Icons.cancel), // Add your cancel icon here
-                      color: kDefaultIconDarkColor,
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                    ),
+    return Stack(
+      children: [
+        Align(
+          alignment: Alignment.topCenter, // Align to the top of the screen
+          child: Material(
+            type: MaterialType.transparency,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  width: 400,
+                  padding: EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(16),
                   ),
-                  const Text(
-                    "Edit Student Profile",
-                    style: TextStyle(
-                      color: Palette.activeColor,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  Form(
-                    key: _editStudentProfileFormKey,
-                    autovalidateMode: AutovalidateMode.disabled,
-                    child: Column(
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            myAlert();
+                  child: Column(
+                    children: [
+                      Align(
+                        alignment: Alignment.topRight,
+                        child: IconButton(
+                          icon: Icon(Icons.cancel), // Add your cancel icon here
+                          color: kDefaultIconDarkColor,
+                          onPressed: () {
+                            Navigator.of(context).pop();
                           },
-                          child: buildPassportPhotoField(),
                         ),
-                        buildTextField(CupertinoIcons.lock, "Registration Number",
-                            false, false, registrationNumberController),
-                        buildTextField(
-                            CupertinoIcons.person, "First Name", false, false, firstNameController),
-                        buildTextField(
-                            CupertinoIcons.person, "Middle Name", false, false, middleNameController),
-                        buildTextField(
-                            CupertinoIcons.person, "Last Name", false, false, lastNameController),
-                        buildTextField(CupertinoIcons.lock, "ID Number", false, false,
-                            idNumberController),
-
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-
-                  GestureDetector(
-                    onTap: () {
-                      if (_editStudentProfileFormKey.currentState!.validate()) {
-                        _showEditStudentProfileDialog(context);
-                      }
-                    },
-                    child: Container(
-                      width: 60, // Set the width and height to your desired size
-                      height: 60, // Set the width and height to your desired size
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: gradientColors ?? [Colors.orange, Colors.red], // Default gradient colors
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
+                      ),
+                      const Text(
+                        "Edit Student Profile",
+                        style: TextStyle(
+                          color: Palette.activeColor,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
                         ),
-                        shape: BoxShape.circle, // Make the container a circle
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(.3),
-                            spreadRadius: 1,
-                            blurRadius: 2,
-                            offset: const Offset(0, 1),
+                      ),
+                      const SizedBox(height: 16),
+                      Form(
+                        key: _editStudentProfileFormKey,
+                        autovalidateMode: AutovalidateMode.disabled,
+                        child: Column(
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                myAlert();
+                              },
+                              child: buildPassportPhotoField(),
+                            ),
+                            buildTextField(CupertinoIcons.lock, "Registration Number",
+                                false, false, registrationNumberController),
+                            buildTextField(
+                                CupertinoIcons.person, "First Name", false, false, firstNameController),
+                            buildTextField(
+                                CupertinoIcons.person, "Middle Name", false, false, middleNameController),
+                            buildTextField(
+                                CupertinoIcons.person, "Last Name", false, false, lastNameController),
+                            buildTextField(CupertinoIcons.lock, "ID Number", false, false,
+                                idNumberController),
+
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+
+                      GestureDetector(
+                        onTap: () {
+                          if (_editStudentProfileFormKey.currentState!.validate()) {
+                            _showEditStudentProfileDialog(context);
+                          }
+                        },
+                        child: Container(
+                          width: 60, // Set the width and height to your desired size
+                          height: 60, // Set the width and height to your desired size
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              colors: gradientColors ?? [Colors.orange, Colors.red], // Default gradient colors
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                            ),
+                            shape: BoxShape.circle, // Make the container a circle
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(.3),
+                                spreadRadius: 1,
+                                blurRadius: 2,
+                                offset: const Offset(0, 1),
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
-                      child: const Icon(
-                        Icons.arrow_forward,
-                        color: Colors.white,
-                      ),
-                    ),
-                  )
+                          child: const Icon(
+                            Icons.arrow_forward,
+                            color: Colors.white,
+                          ),
+                        ),
+                      )
 
-                ],
-              ),
+                    ],
+                  ),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
-      ),
+        if (widget.userRole !=
+            'admin') // Replace 'admin' with the role that should see the overlay
+          const AccessDeniedOverlay()
+      ],
     );
   }
   Future<void> _showEditStudentProfileDialog(BuildContext context) async {

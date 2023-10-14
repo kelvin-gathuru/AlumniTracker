@@ -75,7 +75,7 @@ class Dashboard extends StatelessWidget {
               const SizedBox(
                 height: 10,
               ),
-              const CourseGrid(),
+              const ProgrammeGrid(),
               const SizedBox(
                 height: 20,
               ),
@@ -83,7 +83,7 @@ class Dashboard extends StatelessWidget {
               const SizedBox(
                 height: 15,
               ),
-              const PlaningGrid(),
+              const CourseGrid(),
               const SizedBox(
                 height: 15,
               ),

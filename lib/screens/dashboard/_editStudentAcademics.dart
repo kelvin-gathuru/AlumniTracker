@@ -5,6 +5,9 @@ import 'package:flutter/material.dart';
 import '../../utilities/builders.dart';
 
 class EditStudentacademics extends StatefulWidget {
+  String userRole;
+  EditStudentacademics({super.key, required this.userRole});
+
   @override
   _EditStudentAcademicsState createState() => _EditStudentAcademicsState();
 }
@@ -17,104 +20,125 @@ class _EditStudentAcademicsState extends State<EditStudentacademics> {
 
   @override
   Widget build(BuildContext context) {
-    return Align(
-      alignment: Alignment.topCenter, // Align to the top of the screen
-      child: Material(
-        type: MaterialType.transparency,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              width: 400,
-              padding: EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: Column(
-                children: [
-                  Align(
-                    alignment: Alignment.topRight,
-                    child: IconButton(
-                      icon: Icon(Icons.cancel), // Add your cancel icon here
-                      color: kDefaultIconDarkColor,
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                    ),
+    return Stack(
+      children: [
+        Align(
+          alignment: Alignment.topCenter, // Align to the top of the screen
+          child: Material(
+            type: MaterialType.transparency,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  width: 400,
+                  padding: EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(16),
                   ),
-                  const Text(
-                    "Edit Student Parent",
-                    style: TextStyle(
-                      color: Palette.activeColor,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  Form(
-                    key: _editStudentAcademicsFormKey,
-                    autovalidateMode: AutovalidateMode.disabled,
-                    child: Column(
-                      children: [
-                        buildTextField(
-                            CupertinoIcons.person, "Mode of Study", false, false, modeOfStudyController),
-                        buildTextField(CupertinoIcons.person, "Cohort", false, false,
-                            cohortController),
-
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-
-                  GestureDetector(
-                    onTap: () {
-                      if (_editStudentAcademicsFormKey.currentState!.validate()) {
-                        _showEditStudentAcademicsConfirmationDialog(context);
-                      }
-                    },
-                    child: Container(
-                      width: 60, // Set the width and height to your desired size
-                      height: 60, // Set the width and height to your desired size
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: gradientColors ?? [Colors.orange, Colors.red], // Default gradient colors
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
+                  child: Column(
+                    children: [
+                      Align(
+                        alignment: Alignment.topRight,
+                        child: IconButton(
+                          icon: Icon(Icons.cancel), // Add your cancel icon here
+                          color: kDefaultIconDarkColor,
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
                         ),
-                        shape: BoxShape.circle, // Make the container a circle
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(.3),
-                            spreadRadius: 1,
-                            blurRadius: 2,
-                            offset: const Offset(0, 1),
+                      ),
+                      const Text(
+                        "Edit Student Parent",
+                        style: TextStyle(
+                          color: Palette.activeColor,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      Form(
+                        key: _editStudentAcademicsFormKey,
+                        autovalidateMode: AutovalidateMode.disabled,
+                        child: Column(
+                          children: [
+                            buildTextField(
+                                CupertinoIcons.person,
+                                "Mode of Study",
+                                false,
+                                false,
+                                modeOfStudyController),
+                            buildTextField(CupertinoIcons.person, "Cohort",
+                                false, false, cohortController),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      GestureDetector(
+                        onTap: () {
+                          if (_editStudentAcademicsFormKey.currentState!
+                              .validate()) {
+                            _showEditStudentAcademicsConfirmationDialog(
+                                context);
+                          }
+                        },
+                        child: Container(
+                          width:
+                              60, // Set the width and height to your desired size
+                          height:
+                              60, // Set the width and height to your desired size
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              colors: gradientColors ??
+                                  [
+                                    Colors.orange,
+                                    Colors.red
+                                  ], // Default gradient colors
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                            ),
+                            shape:
+                                BoxShape.circle, // Make the container a circle
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(.3),
+                                spreadRadius: 1,
+                                blurRadius: 2,
+                                offset: const Offset(0, 1),
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
-                      child: const Icon(
-                        Icons.arrow_forward,
-                        color: Colors.white,
-                      ),
-                    ),
-                  )
-
-                ],
-              ),
+                          child: const Icon(
+                            Icons.arrow_forward,
+                            color: Colors.white,
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
-      ),
+        if (widget.userRole !=
+            'admin') // Replace 'admin' with the role that should see the overlay
+           const AccessDeniedOverlay()
+      ],
     );
   }
-  Future<void> _showEditStudentAcademicsConfirmationDialog(BuildContext context) async {
+
+  Future<void> _showEditStudentAcademicsConfirmationDialog(
+      BuildContext context) async {
     return showDialog<void>(
       context: context,
-      barrierDismissible: false, // Dialog cannot be dismissed by tapping outside
+      barrierDismissible:
+          false, // Dialog cannot be dismissed by tapping outside
       builder: (BuildContext context) {
         return AlertDialog(
           title: const Text('Confirm Edit Student Academics'),
-          content: const Text('Are you sure you want to edit student academics?'),
+          content:
+              const Text('Are you sure you want to edit student academics?'),
           actions: <Widget>[
             TextButton(
               onPressed: () {

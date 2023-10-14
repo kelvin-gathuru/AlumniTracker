@@ -5,6 +5,9 @@ import 'package:flutter/material.dart';
 import '../../utilities/builders.dart';
 
 class EditStudentParent extends StatefulWidget {
+  String userRole;
+  EditStudentParent({super.key, required this.userRole});
+
   @override
   _EditStudentParentState createState() => _EditStudentParentState();
 }
@@ -19,98 +22,105 @@ class _EditStudentParentState extends State<EditStudentParent> {
 
   @override
   Widget build(BuildContext context) {
-    return Align(
-      alignment: Alignment.topCenter, // Align to the top of the screen
-      child: Material(
-        type: MaterialType.transparency,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              width: 400,
-              padding: EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: Column(
-                children: [
-                  Align(
-                    alignment: Alignment.topRight,
-                    child: IconButton(
-                      icon: Icon(Icons.cancel), // Add your cancel icon here
-                      color: kDefaultIconDarkColor,
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                    ),
+    return Stack(
+      children: [
+        Align(
+          alignment: Alignment.topCenter, // Align to the top of the screen
+          child: Material(
+            type: MaterialType.transparency,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  width: 400,
+                  padding: EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(16),
                   ),
-                  const Text(
-                    "Edit Student Parent",
-                    style: TextStyle(
-                      color: Palette.activeColor,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  Form(
-                    key: _editStudentParentFormKey,
-                    autovalidateMode: AutovalidateMode.disabled,
-                    child: Column(
-                      children: [
-                        buildTextField(CupertinoIcons.person, "Parent First Name", false, false,
-                            parentFirstNameController),
-                        buildTextField(
-                            CupertinoIcons.person, "Parent Middle Name", false, false, parentMiddleNameController),
-                        buildTextField(
-                            CupertinoIcons.person, "Parent Last Name", false, false, parentLastNameController),
-                        buildTextField(CupertinoIcons.phone, "Parent Contact", false, false,
-                            parentContactController),
-
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-
-                  GestureDetector(
-                    onTap: () {
-                      if (_editStudentParentFormKey.currentState!.validate()) {
-                        _showEditStudentParentConfirmationDialog(context);
-                      }
-                    },
-                    child: Container(
-                      width: 60, // Set the width and height to your desired size
-                      height: 60, // Set the width and height to your desired size
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: gradientColors ?? [Colors.orange, Colors.red], // Default gradient colors
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
+                  child: Column(
+                    children: [
+                      Align(
+                        alignment: Alignment.topRight,
+                        child: IconButton(
+                          icon: Icon(Icons.cancel), // Add your cancel icon here
+                          color: kDefaultIconDarkColor,
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
                         ),
-                        shape: BoxShape.circle, // Make the container a circle
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(.3),
-                            spreadRadius: 1,
-                            blurRadius: 2,
-                            offset: const Offset(0, 1),
-                          ),
-                        ],
                       ),
-                      child: const Icon(
-                        Icons.arrow_forward,
-                        color: Colors.white,
+                      const Text(
+                        "Edit Student Parent",
+                        style: TextStyle(
+                          color: Palette.activeColor,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                    ),
-                  )
+                      const SizedBox(height: 16),
+                      Form(
+                        key: _editStudentParentFormKey,
+                        autovalidateMode: AutovalidateMode.disabled,
+                        child: Column(
+                          children: [
+                            buildTextField(CupertinoIcons.person, "Parent First Name", false, false,
+                                parentFirstNameController),
+                            buildTextField(
+                                CupertinoIcons.person, "Parent Middle Name", false, false, parentMiddleNameController),
+                            buildTextField(
+                                CupertinoIcons.person, "Parent Last Name", false, false, parentLastNameController),
+                            buildTextField(CupertinoIcons.phone, "Parent Contact", false, false,
+                                parentContactController),
 
-                ],
-              ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+
+                      GestureDetector(
+                        onTap: () {
+                          if (_editStudentParentFormKey.currentState!.validate()) {
+                            _showEditStudentParentConfirmationDialog(context);
+                          }
+                        },
+                        child: Container(
+                          width: 60, // Set the width and height to your desired size
+                          height: 60, // Set the width and height to your desired size
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              colors: gradientColors ?? [Colors.orange, Colors.red], // Default gradient colors
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                            ),
+                            shape: BoxShape.circle, // Make the container a circle
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(.3),
+                                spreadRadius: 1,
+                                blurRadius: 2,
+                                offset: const Offset(0, 1),
+                              ),
+                            ],
+                          ),
+                          child: const Icon(
+                            Icons.arrow_forward,
+                            color: Colors.white,
+                          ),
+                        ),
+                      )
+
+                    ],
+                  ),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
-      ),
+        if (widget.userRole !=
+            'admin') // Replace 'admin' with the role that should see the overlay
+          const AccessDeniedOverlay()
+      ],
     );
   }
   Future<void> _showEditStudentParentConfirmationDialog(BuildContext context) async {

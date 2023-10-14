@@ -63,7 +63,7 @@ class _ViewProgrammesState extends State<ViewProgrammes> {
                       showDialog(
                         context: context,
                         builder: (context) {
-                          return AddNewProgramme();
+                          return AddNewProgramme(userRole: 'Admin',);
                         },
                       );
                     },
@@ -111,16 +111,16 @@ class _ViewProgrammesState extends State<ViewProgrammes> {
                       children: [
                         IconButton(
                           onPressed: () {
-                            // Handle editing the student here.
+                            showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AddNewProgramme(userRole: 'Admin',);
+                              },
+                            );
                           },
                           icon: const Icon(Icons.edit),
                         ),
-                        IconButton(
-                          onPressed: () {
-                            // Handle deleting the student here.
-                          },
-                          icon: const Icon(Icons.delete),
-                        ),
+
                       ],
                     ),
                   ),

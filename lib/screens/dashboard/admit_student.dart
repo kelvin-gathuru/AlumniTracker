@@ -262,7 +262,7 @@ class _AdmitStudentPageState extends State<AdmitStudentPage> {
           ),
 
           // Conditional overlay based on the user's role
-          if (widget.userRole != 'admin') // Replace 'admin' with the role that should see the overlay
+          if (widget.userRole != 'Admin') // Replace 'admin' with the role that should see the overlay
           const AccessDeniedOverlay()
         ],
       ),

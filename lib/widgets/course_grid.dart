@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
 import '../data/data.dart';
+import '../screens/dashboard/_courseAdd.dart';
 
-class PlaningGrid extends StatelessWidget {
-  const PlaningGrid({Key? key}) : super(key: key);
+class CourseGrid extends StatelessWidget {
+  const CourseGrid({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -62,13 +63,21 @@ class PlaningGrid extends StatelessWidget {
                     ],
                   ),
                   const Spacer(),
-                  const Column(
+                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(
-                        Icons.more_vert,
-                        color: Colors.grey,
-                      )
+                      IconButton(
+
+                        icon: const Icon(Icons.edit),
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AddNewCourse(userRole: 'Admin',);
+                            },
+                          );
+                        },
+                      ),
                     ],
                   )
                 ],

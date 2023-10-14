@@ -66,7 +66,7 @@ class _ViewCoursesState extends State<ViewCourses> {
                       showDialog(
                         context: context,
                         builder: (context) {
-                          return AddNewCourse();
+                          return AddNewCourse(userRole: 'Admin',);
                         },
                       );
                     },
@@ -114,16 +114,16 @@ class _ViewCoursesState extends State<ViewCourses> {
                       children: [
                         IconButton(
                           onPressed: () {
-                            // Handle editing the student here.
+                            showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AddNewCourse(userRole: 'Admin',);
+                              },
+                            );
                           },
                           icon: const Icon(Icons.edit),
                         ),
-                        IconButton(
-                          onPressed: () {
-                            // Handle deleting the student here.
-                          },
-                          icon: const Icon(Icons.delete),
-                        ),
+
                       ],
                     ),
                   ),

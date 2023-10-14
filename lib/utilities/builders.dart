@@ -173,22 +173,22 @@ Widget buildBottomHalfContainer({
   );
 }
 class AccessDeniedOverlay extends StatelessWidget {
-  const AccessDeniedOverlay({super.key});
+  const AccessDeniedOverlay({Key? key});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       color: Colors.black.withOpacity(0.7),
-      child: const Center(
+      child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(
+            const Icon(
               Icons.lock,
               size: 100,
               color: Colors.white,
             ),
-            Text(
+            const Text(
               'Access Denied!',
               style: TextStyle(
                 color: kOrange,
@@ -196,11 +196,24 @@ class AccessDeniedOverlay extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            Text(
+            const Text(
               'You do not have permission to access this page.',
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 16,
+              ),
+            ),
+            TextButton(
+              onPressed: () {
+                // Add your navigation logic here to go back
+                Navigator.of(context).pop();
+              },
+              child: const Text(
+                'Go Back',
+                style: TextStyle(
+                  color: kOrange, // Change to your desired color
+                  fontSize: 18,    // Change to your desired font size
+                ),
               ),
             ),
           ],
