@@ -68,7 +68,7 @@ class SideMenu extends StatelessWidget {
           ),
           DrawerListTile(
             icon: TernavIcons.lightOutline.home_2,
-            title: " Student Centre",
+            title: " Students",
             onTap: () {
               Navigator.push(
                 context,
@@ -78,7 +78,7 @@ class SideMenu extends StatelessWidget {
           ),
           DrawerListTile(
             icon: TernavIcons.lightOutline.bookmark,
-            title: "Alumni Centre",
+            title: "Alumni",
             onTap: () {
               Navigator.push(
                   context,

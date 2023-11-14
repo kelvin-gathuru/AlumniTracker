@@ -136,6 +136,11 @@ class _StudentCentreState extends State<StudentCentre> {
                     margin: const EdgeInsets.only(bottom: 15.0),
 
                     child: ListTile(
+                        leading: const Icon(
+                          Icons.person, // Add the person icon here
+                          color: Palette.textColor1, // Customize the icon color
+                          size: 32, // Customize the icon size
+                        ),
                       title: Text(student.name),
                       subtitle: Text("Program: ${student.program}"),
                       trailing: PopupMenuButton(

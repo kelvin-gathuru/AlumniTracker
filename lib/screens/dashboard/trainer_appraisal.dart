@@ -83,69 +83,20 @@ class _TrainerAppraisalState extends State<TrainerAppraisal> {
                       borderRadius: BorderRadius.circular(15.0), // Add border radius
                     ),
                     margin: const EdgeInsets.only(bottom: 15.0),
-
                     child: ListTile(
-                        title: Text(student.name),
-                        subtitle: Text("Program: ${student.program}"),
-                        trailing: PopupMenuButton(
-                          icon: const Icon(Icons.more_vert),
-                          itemBuilder: (BuildContext context) {
-                            return [
-                              const PopupMenuItem(
-                                value: "profile",
-                                child: ListTile(
-                                  leading: Icon(Icons.person),
-                                  title: Text("Profile"),
-                                ),
-                              ),
-                              const PopupMenuItem(
-                                value: "contacts",
-                                child: ListTile(
-                                  leading: Icon(Icons.contacts),
-                                  title: Text("Contacts"),
-                                ),
-                              ),
-                              const PopupMenuItem(
-                                value: "parents",
-                                child: ListTile(
-                                  leading: Icon(Icons.people),
-                                  title: Text("Parents"),
-                                ),
-                              ),
-                              const PopupMenuItem(
-                                value: "academics",
-                                child: ListTile(
-                                  leading: Icon(Icons.school),
-                                  title: Text("Academics"),
-                                ),
-                              ),
-                              const PopupMenuItem(
-                                value: "discharge",
-                                child: ListTile(
-                                  leading: Icon(Icons.exit_to_app),
-                                  title: Text("Discharge"),
-                                ),
-                              ),
-                            ];
-                          },
-                          onSelected: (String? value) {
-                            if (value == "profile") {
-                              // Handle profile action
-                            } else if (value == "contacts") {
-                              // Handle contacts action
-                            } else if (value == "parents") {
-                              // Handle parents action
-                            } else if (value == "academics") {
-                              // Handle academics action
-                            } else if (value == "discharge") {
-                              // Handle discharge action
-                            }
-                          },
-                        )
+                      leading: const Icon(
+                        Icons.messenger_outline, // Add the person icon here
+                        color: Palette.textColor2, // Customize the icon color
+                        size: 32, // Customize the icon size
+                      ),
+                      title: Text(student.name),
+                      subtitle: Text("Program: ${student.program}"),
+                      // Remove the PopupMenuButton
                     ),
                   );
                 },
               ),
+
             ],
           ),
         ),
